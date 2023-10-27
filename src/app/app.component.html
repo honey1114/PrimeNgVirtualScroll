@@ -1,0 +1,48 @@
+<!-- WORKINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG -->
+
+<div *ngIf="showTable" class="card">
+  <p-table
+    [columns]="columns"
+    [value]="virtualData"
+    scrollHeight="500px"
+    [rows]="20"
+    [virtualScroll]="true"
+    [virtualScrollItemSize]="46"
+    [lazy]="true"
+    [lazyLoadOnInit]="false"
+    [scrollable]="true"
+    (onLazyLoad)="loadCarsLazy($event)"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          style="width: 20%;"
+          pFrozenColumn
+          [frozen]="col.frozen"
+        >
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr style="height:46px">
+        <td
+          class="p-column-title"
+          *ngFor="let col of columns"
+          pFrozenColumn
+          [frozen]="col.frozen"
+        >
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="loadingbody" let-columns="columns">
+      <tr style="height:46px">
+        <td *ngFor="let col of columns" pFrozenColumn [frozen]="col.frozen">
+          <p-skeleton></p-skeleton>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
